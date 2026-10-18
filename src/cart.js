@@ -66,7 +66,30 @@ function calculateCartSubtotal(cart) {
   return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 }
 
-function calculateOrderTotal() { return notImplemented(); }
+function calculateOrderTotal(cart, promo) { 
+  const INFO = {
+    freeDeliveryThreshold: 50000,
+    deliveryDefaultPrice: 30000,
+    promoThreshold: 20000,
+    promo: 'SAVE10',
+    promoDiscountPercent: 10,
+  }
+
+  const cartSum = calculateCartSubtotal(cart);
+
+  const deliveryPrice = cartSum >= INFO.freeDeliveryThreshold ? 0 : INFO.deliveryDefaultPrice;
+  const promoDiscount = (promo === INFO.promo) && (cartSum >= INFO.promoThreshold) ? cartSum * INFO.promoDiscountPercent / 100 : 0;
+  const totalSum = cartSum - promoDiscount + deliveryPrice;
+
+  const result = {
+    subtotal: cartSum,
+    discount: promoDiscount,
+    delivery: deliveryPrice,
+    total: totalSum,
+  };
+
+  return result;
+}
 
 const cartApi = { addToCart, changeQuantity, removeFromCart, calculateCartSubtotal, calculateOrderTotal };
 
