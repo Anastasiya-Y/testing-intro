@@ -7,7 +7,7 @@ function addToCart(cart, product, quantity) {
     throw new RangeError('Добавьте 1 или более товаров');
   }
 
-  const cartCopy = [...cart];
+  const cartCopy = cart.map((item) => ({ ...item }));
 
   const itemInCart = cartCopy.find((item) => item.id === product.id);
 
@@ -26,9 +26,7 @@ function addToCart(cart, product, quantity) {
   return cartCopy;
 }
 
-// function changeQuantity() { return notImplemented(); }
 function changeQuantity(cart, id, quantity) { 
-  // if (event.target.dataset.increase) cart = cartApi.changeQuantity(cart, id, cart.find((item) => item.id === id).quantity + 1);
   if (quantity === 0) {
     throw new RangeError('Количество не может быть равным 0');
   }
