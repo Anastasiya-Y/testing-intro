@@ -48,7 +48,20 @@ function changeQuantity(cart, id, quantity) {
   return cartCopy;
 }
 
-function removeFromCart() { return notImplemented(); }
+function removeFromCart(cart, id) { 
+  const cartCopy = cart.map((item) => ({ ...item }));
+
+  const index = cartCopy.findIndex((item) => item.id === id);
+
+  if (index === -1) {
+    return cartCopy;
+  }
+
+  cartCopy.splice(index, 1);
+
+  return cartCopy;
+}
+
 function calculateCartSubtotal() { return notImplemented(); }
 function calculateOrderTotal() { return notImplemented(); }
 
